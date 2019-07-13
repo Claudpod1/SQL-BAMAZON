@@ -33,11 +33,15 @@ function showAll() {
         }).then(function (response) {
             connection.query("SELECT * FROM products WHERE ?", { id: response.Id_to_buy }, function (err, res) {
                 if (err) throw err;
-
                 if (res.length === 0) {
+                    
                     console.log(`Please enter a valid product id`)
+                    return showAll();
 
                 }
+                var productName = res[0].product_name
+                var cost = res[0].price 
+                
                 inquirer.prompt({
                     type: "number",
                     name: "Units_to_buy",
@@ -47,45 +51,35 @@ function showAll() {
                         if (err) throw err;
 
 
-                        // console.log(" what is res2 " + res2);
-
-                        // console.log(" what is res " + res);
-
-                        // console.log(res[0].stock_quantity);
-
-                        // / check to see that responsetwo.Units_to_buy is less than or equal to res[0].stock_quantity if
                         if (responsetwo.Units_to_buy <= res[0].stock_quantity) {
 
-                            var newTotal = res[0].stock_quantity - responsetwo.Units_to_buy 
-                            // console.log("MATH" + newTotal);
+                            var newTotal = res[0].stock_quantity - responsetwo.Units_to_buy
 
-
-                            // console.log("res2: ", responsetwo.Units_to_buy)
-                            // console.log("res0: ", res[0].stock_quantity)
-                            // console.log("There is pretty in stock for purchase");
+                          
+                 
                             connection.query(
 
                                 //needs to update the stock quantity
                                 "UPDATE products SET ? WHERE ?",
-                                
+
                                 [
                                     {
                                         stock_quantity: newTotal
-    
+
                                     },
-    
+
                                     {
                                         id: response.Id_to_buy
                                     }
-    
+
                                 ],
                                 function (err) {
                                     if (err) throw err;
-                                    console.log("Your product was successfully purchased");
-                                    connection.query("SELECT * FROM products;", function(err, res)
-                                    {
-                                        // console.log(res)
-                                    })
+                                
+                                 
+                                    console.log(`You just purchased ${responsetwo.Units_to_buy} items of ${productName} for ${cost * responsetwo.Units_to_buy}`);
+                                    connection.end();
+
                                     
                                 }
                             );
@@ -93,22 +87,13 @@ function showAll() {
                             if (err) throw err;
 
                             console.log("There is not enough in stock, please put in a quality that is availble. ")
+                       
+
+                            connection.end();
+
+                           
                         }
-                        
-
-
-                     }
-//                     //  connection.end();
-
-                
-//                         //          else {
-//                         //     console.log("The purchase could not be completed. Please try again");
-//                         //     showAll();
-//                         // }
-//                         // tell the user the purchase  and the total x amount of things 
-//                         //  purchase total
-
-                    )
+                    });
                 });
             });
         });
