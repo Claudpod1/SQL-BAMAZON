@@ -4,7 +4,7 @@ var mysql = require("mysql");
 
 var inquirer = require("inquirer");
 
-require ("console.table");
+require("console.table");
 
 var connection = mysql.createConnection({
     user: "root",
@@ -14,125 +14,103 @@ var connection = mysql.createConnection({
     database: "bamazon_db"
 });
 
-// function menu () {
-//     console.log("menu goes here!");
-// }
-// connection.connect(function(){
-//  console.log(`Connected as id ${connection.threadId}`)
-//     menu();
-// });
-
 connection.connect(function (err) {
     if (err) throw err;
     showAll();
 });
 
-// function startBamazon() {
-//     inquirer.prompt({
-//         type: "list",
-//         name: "choicesoption",
-//         message: "Come check out the amazing products at Bamazon, which product would you like to search first?",
-//         choices: ["Shop by the department", "Shop by the product"]
-
-//     }).then(function (response) {
-//         switch (response.choicesoption) {
-//             case "Shop by the department":
-//                 return shopDept();
-
-//             case "Shop by the product":
-//                 return shopProduct();
-
-//             default:
-//                 connection.end();
-
-//         };
-//     });
-// }
-
-function showAll (){
-    connection.query("SELECT * FROM products", function(err,data){
+function showAll() {
+    connection.query("SELECT * FROM products", function (err, data) {
         if (err) throw err;
 
         console.table(data);
-        
+
         inquirer.prompt({
-            type:"number",
-            name:"Id_to_buy",
+            type: "number",
+            name: "Id_to_buy",
             message: " The ID of the product you would like to buy?"
 
-        }).then(function(response){
-            connection.query("SELECT * FROM products WHERE ?", {id: response.Id_to_buy}, function(err,res){
-                if (err) throw err; 
+        }).then(function (response) {
+            connection.query("SELECT * FROM products WHERE ?", { id: response.Id_to_buy }, function (err, res) {
+                if (err) throw err;
 
-                if(res.length === 0){
+                if (res.length === 0) {
                     console.log(`Please enter a valid product id`)
 
                 }
-            inquirer.prompt({
-                type:"number",
-                name:"Units_to_buy",
-                message:"How many units of the product would you like to buy?"
-            }).then(function(responsetwo){
-                connection.query("SELECT stock_quantity FROM products WHERE ?", {id: response.Id_to_buy}, function(err,res2){
-                    if (err) throw err;
-                    console.log(res);
-                    
-                    console.log(res[0].stock_quantity);
-
-                    
-
-                    // check to see that responsetwo.Units_to_buy is less than or equal to res[0].stock_quantity if
-                    //needs to update the stock quantity
-                    // tell the user the purchase  and the total x amount of things 
-                    //  purchase total
-                    // connection.end();
-            })
-        })   
-            })
-        })
-    })
-}
+                inquirer.prompt({
+                    type: "number",
+                    name: "Units_to_buy",
+                    message: "How many units of the product would you like to buy?"
+                }).then(function (responsetwo) {
+                    connection.query("SELECT stock_quantity FROM products WHERE ?", { id: response.Id_to_buy }, function (err, res2) {
+                        if (err) throw err;
 
 
-function shopDept() {
-    connection.query(" SELECT * FROM products", function (err,data){
-        if (err) throw err;
-         
-        inquirer.prompt({
-            type:"list",
-            name: "Department",
-            message: "What department would you like to shop from?",
-            choices: function(){
-                var department = data.map(function(product){
-                    return product.department_name
-                });
+                        // console.log(" what is res2 " + res2);
+
+                        // console.log(" what is res " + res);
+
+                        // console.log(res[0].stock_quantity);
+
+                        // / check to see that responsetwo.Units_to_buy is less than or equal to res[0].stock_quantity if
+                        if (responsetwo.Units_to_buy <= res[0].stock_quantity) {
+
+                            var newTotal = res[0].stock_quantity - responsetwo.Units_to_buy 
+                            // console.log("MATH" + newTotal);
+
+
+                            // console.log("res2: ", responsetwo.Units_to_buy)
+                            // console.log("res0: ", res[0].stock_quantity)
+                            // console.log("There is pretty in stock for purchase");
+                            connection.query(
+
+                                //needs to update the stock quantity
+                                "UPDATE products SET ? WHERE ?",
+                                
+                                [
+                                    {
+                                        stock_quantity: newTotal
+    
+                                    },
+    
+                                    {
+                                        id: response.Id_to_buy
+                                    }
+    
+                                ],
+                                function (err) {
+                                    if (err) throw err;
+                                    console.log("Your product was successfully purchased");
+                                    connection.query("SELECT * FROM products;", function(err, res)
+                                    {
+                                        // console.log(res)
+                                    })
+                                    
+                                }
+                            );
+                        } else {
+                            if (err) throw err;
+
+                            console.log("There is not enough in stock, please put in a quality that is availble. ")
+                        }
+                        
+
+
+                     }
+//                     //  connection.end();
+
                 
-                return department.filter (function (item, index){
-                   return department.indexOf(item) >= index;
+//                         //          else {
+//                         //     console.log("The purchase could not be completed. Please try again");
+//                         //     showAll();
+//                         // }
+//                         // tell the user the purchase  and the total x amount of things 
+//                         //  purchase total
+
+                    )
                 });
-            }
-        }).then(function(response){
-            console.log(response);
-            // ///// should I have a query here ?????????
-            connection.query("SELECT * FROM products WHERE ?", {department_name: response.Department}, function (err,res){
-                if (err) throw err;
-
-                 console.table(res);
-                
-            })
-        })
-
-
-})
-
-
-function shopProduct() {
-
+            });
+        });
+    });
 }
-
-// function buyProduct(){
-}
-// 
-
-
-
