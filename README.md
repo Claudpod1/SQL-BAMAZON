@@ -21,7 +21,7 @@ I intergrated inquirer and the method inquirer.prompt to ask the user the ID num
 
 * Populate the database with 10 different products. 
 
-* Creare a Node application called bamazonCustomer.js. Running this application will first display all of the items available for sale. Include the ids, names, and prices of the products for sale. 
+* Create a Node application called bamazonCustomer.js. Running this application will first display all of the items available for sale. Include the ids, names, and prices of the products for sale. 
 
 * The application will prompt the user with two messages:
    - Ask the user the ID of the product key they would like to buy. 
