@@ -1,11 +1,11 @@
-<b> Homework: Create a MySQL Database. 
+<b> Homework: Create a MySQL Database. </b>
 
 # SQL-BAMAZON
 
 
 <b>Homework assignment covering integrating SQL databases and testing with products.</b>
 
-<b> About </b>
+<b>About</b>
 
 The Bamozon Project is based off a SQL database. I intergrated this database by making a store based off require("console.table") to give the user a more fiendly experience. 
 I intergrated inquirer and the method inquirer.prompt to ask the user the ID number they would like to purchase from and the quality. 
