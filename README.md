@@ -38,23 +38,49 @@ In this homework you will need to have your server running.
 
 - I used MAMP in this homework assignment. 
 
-<b> To start the assignment you need: node (nameofthejavascriptfile) - to start the application. 
+To start the assignment you need: node (nameofthejavascriptfile) - to start the application. 
   
 <b> Below are screenshots of the assignment </b> 
 
+Here is a screenshot of when you first run: node bamazonCustomer.js in the terminal
 
 
 <img width="567" alt="Screen Shot 2019-09-09 at 2 19 12 PM" src="https://user-images.githubusercontent.com/48806630/64563600-fd0bfb80-d30c-11e9-8f51-c6fdaf2eb08b.png">
 
+Next Screen shot: Shows where the customer will put the ID of the product they would like to buy. 
 
-Then based on the user output the UPDATE method in SQL, updated the databased based on the user's choice for purchase. 
+<img width="562" alt="Screen Shot 2019-09-09 at 2 49 48 PM" src="https://user-images.githubusercontent.com/48806630/64565537-39415b00-d311-11e9-9ac7-cddbfad73105.png">
+
+Next Screenshot: Is how many of units the user would like to purchase.
 
 
+<img width="562" alt="Screen Shot 2019-09-09 at 2 51 29 PM" src="https://user-images.githubusercontent.com/48806630/64565701-93dab700-d311-11e9-9eec-4137747f1a13.png">
 
-Intergrated techlogy
+Next Screenshot: Shows how many of the ID the user prochased with the total. 
+
+
+<img width="562" alt="Screen Shot 2019-09-09 at 2 51 46 PM" src="https://user-images.githubusercontent.com/48806630/64565780-c08ece80-d311-11e9-80b0-e8e415147732.png">
+
+
+Now if the customer tries to buy a product that is out of the stock. Below are the screenshots of will happen then. 
+
+
+<img width="562" alt="Screen Shot 2019-09-09 at 2 57 09 PM" src="https://user-images.githubusercontent.com/48806630/64565962-1f544800-d312-11e9-8258-819ab85890b1.png">
+
+<img width="562" alt="Screen Shot 2019-09-09 at 2 57 46 PM" src="https://user-images.githubusercontent.com/48806630/64566008-37c46280-d312-11e9-84ce-48ed7e61c144.png">
+
+<img width="562" alt="Screen Shot 2019-09-09 at 2 58 29 PM" src="https://user-images.githubusercontent.com/48806630/64566062-50347d00-d312-11e9-9352-cc7f2653cc25.png">
+
+
+Intergrated technology
 - My SQL workbench 
 - MAMP  for my server
 - JavaScript 
 - JQuery
 - JSON 
 - JNode
+
+Shoutout: 
+
+To my awesome Teacher Assistant: Lindsay Chapin 
+
